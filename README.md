@@ -166,3 +166,104 @@ rows="4"
 style="width:300px;padding:10px;border-radius:10px;"></textarea>
 
 <br><br>
+document.getElementById("yes").onclick = function(){
+
+let date=document.getElementById("date").value;
+let time=document.getElementById("time").value;
+let dinner=document.getElementById("dinner").value;
+let place=document.getElementById("place").value;
+let note=document.getElementById("note").value;
+
+if(date=="" || time=="" || dinner=="" || place==""){
+alert("Please complete all required fields 💜");
+return;
+}
+
+document.body.innerHTML=`
+
+<div style="
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+height:100vh;
+background:linear-gradient(135deg,#6a11cb,#c471ed);
+color:white;
+text-align:center;
+overflow:hidden;
+">
+
+<h1>💜 Thank You Happy 💜</h1>
+
+<h2>Your Date Request is Ready ❤️</h2>
+
+<div style="
+background:rgba(255,255,255,.15);
+padding:25px;
+border-radius:20px;
+margin-top:20px;
+backdrop-filter:blur(12px);
+">
+
+<h3>📅 Date : ${date}</h3>
+
+<h3>🕒 Time : ${time}</h3>
+
+<h3>🍽️ Dinner : ${dinner}</h3>
+
+<h3>📍 Place : ${place}</h3>
+
+<p>${note}</p>
+
+</div>
+
+<h2 style="margin-top:30px;">
+Can't wait to meet you ❤️
+</h2>
+
+<canvas id="confetti"></canvas>
+
+</div>
+`;
+
+confetti();
+};
+
+function confetti(){
+
+for(let i=0;i<200;i++){
+
+let heart=document.createElement("div");
+
+heart.innerHTML=["💜","❤️","✨","🎉"][Math.floor(Math.random()*4)];
+
+heart.style.position="absolute";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top="-20px";
+heart.style.fontSize=(20+Math.random()*20)+"px";
+heart.style.animation="fall "+(3+Math.random()*4)+"s linear";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),7000);
+
+}
+
+}
+
+let style=document.createElement("style");
+
+style.innerHTML=`
+@keyframes fall{
+0%{
+transform:translateY(-100px) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(110vh) rotate(720deg);
+opacity:0;
+}
+}
+`;
+
+document.head.appendChild(style);
