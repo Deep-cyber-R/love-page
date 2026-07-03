@@ -146,3 +146,23 @@ setInterval(createHeart,300);
 
 </body>
 </html>
+<label>📍 Select Meeting Place *</label><br>
+
+<select id="place" required>
+<option value="">-- Select Place --</option>
+<option>🍽️ Restaurant</option>
+<option>☕ Coffee Shop</option>
+<option>🎬 Movie</option>
+<option>🌳 Park</option>
+<option>🚗 Long Drive</option>
+</select>
+
+<br><br>
+
+<textarea
+id="note"
+placeholder="Any special message..."
+rows="4"
+style="width:300px;padding:10px;border-radius:10px;"></textarea>
+
+<br><br>
