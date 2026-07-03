@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>For Happy</title><style>
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#6a11cb,#c471ed);color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden;text-align:center}.c{max-width:700px;padding:20px}button{padding:12px 22px;border:none;border-radius:30px;margin:8px;font-size:18px}#y{background:#ff4fa3;color:#fff}#n{background:#fff;color:#6a11cb;position:relative}.h{position:absolute;animation:f 8s linear infinite}@keyframes f{from{transform:translateY(100vh)}to{transform:translateY(-120vh)}}
+</style></head><body><div class='c'><h1>💜 Dear Happy 💜</h1><p>Every time I think of you, my heart smiles.<br><br>Will you go on a date with me?</p><button id='y'>Yes 💖</button><button id='n'>No 🙈</button></div><script>
+n=document.getElementById('n');n.onmouseover=()=>{n.style.position='absolute';n.style.left=Math.random()*80+'%';n.style.top=Math.random()*80+'%'};
+document.getElementById('y').onclick=()=>document.body.innerHTML="<div style='display:flex;height:100vh;justify-content:center;align-items:center;color:white'><h1>Thank you Happy 💜</h1></div>";
+setInterval(()=>{let d=document.createElement('div');d.className='h';d.innerHTML='💜';d.style.left=Math.random()*100+'vw';d.style.fontSize=(20+Math.random()*20)+'px';document.body.appendChild(d);setTimeout(()=>d.remove(),8000)},300);
+</script></body></html>
