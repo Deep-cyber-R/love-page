@@ -1,269 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Happy 💜</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Special Date ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+        body {
+            background: linear-gradient(135deg, #ffe3e3 0%, #fff0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
 
-body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#6a11cb,#8e44ad,#c471ed);
-overflow:hidden;
-color:white;
-text-align:center;
-}
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(255, 75, 92, 0.15);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
 
-.container{
-max-width:700px;
-padding:30px;
-z-index:2;
-}
+        .step {
+            display: none;
+        }
 
-h1{
-font-size:3rem;
-margin-bottom:20px;
-}
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease forward;
+        }
 
-p{
-font-size:1.2rem;
-line-height:1.8;
-margin-bottom:25px;
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-button{
-padding:14px 28px;
-font-size:18px;
-border:none;
-border-radius:50px;
-cursor:pointer;
-margin:10px;
-transition:.3s;
-}
+        h1, h2 {
+            color: #ff4b5c;
+            margin-bottom: 20px;
+        }
 
-#yes{
-background:#ff4fa3;
-color:white;
-}
+        .gif-container img {
+            width: 140px;
+            height: 140px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
 
-#yes:hover{
-transform:scale(1.1);
-}
+        /* Buttons & Interactions */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            position: relative;
+            height: 50px;
+        }
 
-#no{
-background:white;
-color:#8e44ad;
-position:relative;
-}
+        button {
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-.heart{
-position:absolute;
-color:#ff69b4;
-font-size:24px;
-animation:float 8s linear infinite;
-}
+        .btn-primary {
+            background-color: #ff4b5c;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 75, 92, 0.3);
+        }
 
-@keyframes float{
-0%{
-transform:translateY(100vh);
-opacity:0;
-}
-100%{
-transform:translateY(-120vh);
-opacity:1;
-}
-}
-</style>
+        .btn-primary:hover {
+            transform: scale(1.05);
+            background-color: #e03e4f;
+        }
+
+        #noBtn {
+            background-color: #888;
+            color: white;
+            position: absolute;
+            left: 55%;
+        }
+
+        /* Food Grid Selection */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .menu-item {
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .menu-item:hover {
+            border-color: #ff4b5c;
+            background-color: #fff8f8;
+        }
+
+        .menu-item.selected {
+            border-color: #ff4b5c;
+            background-color: #ffe8ea;
+        }
+
+        .menu-item span {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Inputs */
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        input[type="date"], input[type="time"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="date"]:focus, input[type="time"]:focus {
+            border-color: #ff4b5c;
+        }
+
+        .error-msg {
+            color: #d9534f;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+            text-align: left;
+        }
+
+        /* Highlight Selection Box */
+        .summary-box {
+            background: #fff5f5;
+            border-left: 4px solid #ff4b5c;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .summary-box p {
+            margin: 5px 0;
+            color: #444;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container">
+    <div class="card">
+        <div id="step1" class="step active">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdtcm9wa2V6OXN2Z3I1M29icWFsYzg0Mms5cmYwNm90Mm90Z3V6ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/v6aOjy0Qo1fIA/giphy.gif" alt="Cute Bear">
+            </div>
+            <h1>Will you go out with me? ❤️</h1>
+            <div class="btn-container">
+                <button class="btn-primary" onclick="nextStep(2)">Yes!</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
 
-<h1>💜 Dear Happy 💜</h1>
+        <div id="step2" class="step">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z0NTh3b3NpeWw5b3Q4bms2ZW95Y3A0am9pY3B5bXptczN6NzhwMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Qs7KuhzSl6IokmI6nN/giphy.gif" alt="Hungry Cute Bear">
+            </div>
+            <h2>What would you like to eat? 🍕</h2>
+            <p style="color: #666;">Pick your favorite treat!</p>
+            
+            <div class="menu-grid">
+                <div class="menu-item" onclick="toggleSelectFood(this, 'Pizza & Pasta')">
+                    <span>🍕</span> Pizza & Pasta
+                </div>
+                <div class="menu-item" onclick="toggleSelectFood(this, 'Sushi Date')">
+                    <span>🍣</span> Sushi
+                </div>
+                <div class="menu-item" onclick="toggleSelectFood(this, 'Burgers & Fries')">
+                    <span>🍔</span> Burgers & Fries
+                </div>
+                <div class="menu-item" onclick="toggleSelectFood(this, 'Sweet Desserts')">
+                    <span>🍰</span> Just Desserts
+                </div>
+            </div>
+            <p id="foodError" class="error-msg">Please pick at least one option before continuing!</p>
+            <button class="btn-primary" style="width: 100%;" onclick="validateFoodAndNext()">Next: Pick a Time ➔</button>
+        </div>
 
-<p>
-Every time I think of you, my heart smiles.<br><br>
+        <div id="step3" class="step">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWc0ZXI5NzdmaXN3cHltMXE0cjZ0eWpsYnc1azEwNHB5MG9idG44dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/3ohs7K86VLeIP1re9O/giphy.gif" alt="Clock Bear">
+            </div>
+            <h2>When are you free? 📅</h2>
+            
+            <div class="form-group">
+                <label for="dateInput">Select Date:</label>
+                <input type="date" id="dateInput">
+                <p id="dateError" class="error-msg">Please select a valid upcoming date!</p>
+            </div>
 
-You make ordinary moments feel special, and I'd love the chance to create beautiful memories together.
-</p>
+            <div class="form-group">
+                <label for="timeInput">Select Time:</label>
+                <input type="time" id="timeInput">
+                <p id="timeError" class="error-msg">Please select a time!</p>
+            </div>
 
-<h2 style="margin-bottom:25px;">Will you go on a date with me? 💜</h2>
+            <button class="btn-primary" style="width: 100%;" onclick="validateDateTimeAndNext()">Lock Date & Time ➔</button>
+        </div>
 
-<button id="yes">💖 Yes</button>
-<button id="no">🙈 No</button>
+        <div id="step4" class="step">
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY1YTI4cXN0ZmdvNnI0N3V5MDZ6YmN5MXRrcnRkZ3p0Z3RsczZxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/c7QVDasajO0I8/giphy.gif" alt="Dancing Happy Bear">
+            </div>
+            <h2>It's an official date! 🎉</h2>
+            
+            <div class="summary-box">
+                <p><strong>🍴 Menu Choice:</strong> <span id="finalFood"></span></p>
+                <p><strong>📅 Date scheduled:</strong> <span id="finalDate"></span></p>
+                <p><strong>⏰ Pickup Time:</strong> <span id="finalTime"></span></p>
+            </div>
 
-</div>
+            <h3 style="color: #ff4b5c; margin-top: 20px;">Be ready on <span id="finalTimeText"></span>, I will pick you up! 🚘💨</h3>
+        </div>
+    </div>
 
-<script>
+    <script>
+        let selectedFood = "";
+        const noBtn = document.getElementById('noBtn');
 
-const no=document.getElementById("no");
+        // 1. Runaway No Button Logic
+        function moveNoButton() {
+            const padding = 50;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
 
-no.addEventListener("mouseover",()=>{
-no.style.position="absolute";
-no.style.left=Math.random()*80+"%";
-no.style.top=Math.random()*80+"%";
-});
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoButton(); });
 
-document.getElementById("yes").onclick=function(){
-document.body.innerHTML=`
-<div style="display:flex;height:100vh;justify-content:center;align-items:center;flex-direction:column;background:linear-gradient(135deg,#6a11cb,#c471ed);color:white;text-align:center;">
-<h1 style="font-size:60px;">💜 Thank You Happy 💜</h1>
-<h2>You've made my day! 😊</h2>
-<p style="font-size:22px;margin-top:20px;">
-Can't wait to spend some wonderful time together.
-</p>
-</div>`;
-};
+        // 2. Navigation Steps
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+        }
 
-function createHeart(){
-const heart=document.createElement("div");
-heart.classList.add("heart");
-heart.innerHTML="💜";
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(20+Math.random()*25)+"px";
-heart.style.animationDuration=(5+Math.random()*5)+"s";
-document.body.appendChild(heart);
+        // 3. Food Choice Engine
+        function toggleSelectFood(element, foodName) {
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedFood = foodName;
+            document.getElementById('foodError').style.display = 'none';
+        }
 
-setTimeout(()=>{
-heart.remove();
-},9000);
-}
+        function validateFoodAndNext() {
+            if (!selectedFood) {
+                document.getElementById('foodError').style.display = 'block';
+            } else {
+                // Set the default minimum date value to "today" for better UX validation rules
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('dateInput').setAttribute('min', today);
+                nextStep(3);
+            }
+        }
 
-setInterval(createHeart,300);
+        // 4. Date & Time Validation Engine
+        function validateDateTimeAndNext() {
+            const dateInput = document.getElementById('dateInput').value;
+            const timeInput = document.getElementById('timeInput').value;
+            let isValid = true;
 
-</script>
+            // Reset errors
+            document.getElementById('dateError').style.display = 'none';
+            document.getElementById('timeError').style.display = 'none';
 
+            if (!dateInput) {
+                document.getElementById('dateError').style.display = 'block';
+                isValid = false;
+            }
+            if (!timeInput) {
+                document.getElementById('timeError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Format date look (e.g., 2026-07-04 -> July 4, 2026)
+                const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+                const structuredDate = new Date(dateInput).toLocaleDateString(undefined, dateOptions);
+                
+                // Format 24hr to readable 12hr time format
+                const [hours, minutes] = timeInput.split(':');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const formattedHours = hours % 12 || 12;
+                const structuredTime = `${formattedHours}:${minutes} ${ampm}`;
+
+                // Populate final text fields dynamically
+                document.getElementById('finalFood').innerText = selectedFood;
+                document.getElementById('finalDate').innerText = structuredDate;
+                document.getElementById('finalTime').innerText = structuredTime;
+                document.getElementById('finalTimeText').innerText = `${structuredDate} at ${structuredTime}`;
+
+                nextStep(4);
+            }
+        }
+    </script>
 </body>
 </html>
-<label>📍 Select Meeting Place *</label><br>
-
-<select id="place" required>
-<option value="">-- Select Place --</option>
-<option>🍽️ Restaurant</option>
-<option>☕ Coffee Shop</option>
-<option>🎬 Movie</option>
-<option>🌳 Park</option>
-<option>🚗 Long Drive</option>
-</select>
-
-<br><br>
-
-<textarea
-id="note"
-placeholder="Any special message..."
-rows="4"
-style="width:300px;padding:10px;border-radius:10px;"></textarea>
-
-<br><br>
-document.getElementById("yes").onclick = function(){
-
-let date=document.getElementById("date").value;
-let time=document.getElementById("time").value;
-let dinner=document.getElementById("dinner").value;
-let place=document.getElementById("place").value;
-let note=document.getElementById("note").value;
-
-if(date=="" || time=="" || dinner=="" || place==""){
-alert("Please complete all required fields 💜");
-return;
-}
-
-document.body.innerHTML=`
-
-<div style="
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-height:100vh;
-background:linear-gradient(135deg,#6a11cb,#c471ed);
-color:white;
-text-align:center;
-overflow:hidden;
-">
-
-<h1>💜 Thank You Happy 💜</h1>
-
-<h2>Your Date Request is Ready ❤️</h2>
-
-<div style="
-background:rgba(255,255,255,.15);
-padding:25px;
-border-radius:20px;
-margin-top:20px;
-backdrop-filter:blur(12px);
-">
-
-<h3>📅 Date : ${date}</h3>
-
-<h3>🕒 Time : ${time}</h3>
-
-<h3>🍽️ Dinner : ${dinner}</h3>
-
-<h3>📍 Place : ${place}</h3>
-
-<p>${note}</p>
-
-</div>
-
-<h2 style="margin-top:30px;">
-Can't wait to meet you ❤️
-</h2>
-
-<canvas id="confetti"></canvas>
-
-</div>
-`;
-
-confetti();
-};
-
-function confetti(){
-
-for(let i=0;i<200;i++){
-
-let heart=document.createElement("div");
-
-heart.innerHTML=["💜","❤️","✨","🎉"][Math.floor(Math.random()*4)];
-
-heart.style.position="absolute";
-heart.style.left=Math.random()*100+"vw";
-heart.style.top="-20px";
-heart.style.fontSize=(20+Math.random()*20)+"px";
-heart.style.animation="fall "+(3+Math.random()*4)+"s linear";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>heart.remove(),7000);
-
-}
-
-}
-
-let style=document.createElement("style");
-
-style.innerHTML=`
-@keyframes fall{
-0%{
-transform:translateY(-100px) rotate(0deg);
-opacity:1;
-}
-100%{
-transform:translateY(110vh) rotate(720deg);
-opacity:0;
-}
-}
-`;
-
-document.head.appendChild(style);
